@@ -11,8 +11,8 @@ function App() {
   const getUser =  async() =>{
     try {
       const res = await axios.get(`https://randomuser.me/api/?results=10`);
-      setUserInfo(res.results.name);
-      console.log(res.results.name);
+      setUserInfo(res.data.results);
+      console.log(res.data.results);
     } catch (error) {
       alert("取得資料失敗")
     }
@@ -26,8 +26,13 @@ function App() {
   
   return (
     <>
-      {/* {userInfo}
-      {getUser} */}
+      {userInfo.map((user, index) => (
+        <div key={index}>
+          <p>Name: {user.name.first} {user.name.last}</p>
+          <p>Email: {user.email}</p>
+          <p>Location: {user.location.city}, {user.location.country}</p>
+        </div>
+      ))}
     </>
   )
 }
